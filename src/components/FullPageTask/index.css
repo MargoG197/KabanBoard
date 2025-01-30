@@ -1,0 +1,48 @@
+
+
+.fullPageTaskMainDiv{
+position: fixed;
+width: calc(100% - 100px);
+height: 80%;
+background-color: white;
+top: 55px;
+left: 20px;
+z-index: 2;
+border-radius: 5px;
+padding: 32px;
+text-align: left;
+}
+
+.x {
+	position: absolute;
+	top: 30px;
+	right: 20px;
+	width: 24px;
+	height: 24px;
+	opacity: 0.2;
+	cursor: pointer;
+  transition: opacity ease 0.5s;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+
+.x::before,
+.x::after {
+	content: '';
+	position: absolute;
+	top: 10px;
+	display: block;
+	width: 24px;
+	height: 3px;
+	background: #000;
+}
+
+.x::before {
+	transform: rotate(45deg);
+}
+
+.x::after {
+	transform: rotate(-45deg);
+}

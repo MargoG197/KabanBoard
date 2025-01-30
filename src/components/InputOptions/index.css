@@ -1,0 +1,53 @@
+
+
+
+/* .inputClicked{
+ background-color: ;
+} */
+.pStyle{
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  width: 258px;
+  /* max-height: 200px; */
+  font-size: 18px;
+  padding: 7px 8px;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pStyle p{
+  margin: 0;
+}
+
+
+.checkOpt{
+  display: flex;
+  list-style: none;
+  padding: 16px;
+}
+
+.visible{
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  width: 258px;
+  height: fit-content;
+  max-height: 230px;
+  font-size: 18px;
+  padding: 7px 8px;
+  margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  text-align: left;
+  margin-top: 4px;
+  cursor: pointer;
+}
+
+.hidden{
+  display: none;
+}
+
+.rotate{
+  transform: rotate(180deg);
+}

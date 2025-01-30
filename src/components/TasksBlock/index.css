@@ -1,0 +1,68 @@
+.taskskBlock{
+  background-color: #EBECF0;
+  min-width: 252px;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: left;
+  border-radius: 5px;
+  padding: 12px 12px 0 12px;
+  justify-content: left;
+  margin-bottom: 10px;
+  max-height: 700px;
+  box-sizing: border-box;
+}
+
+.taskBlockContent{
+  max-height: 600px;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+.taskskBlock p{
+text-align: left;
+font-size: 18px;
+}
+
+.button{
+width: 102px;
+height: 29px;
+background-color: #0079BF;
+border-radius: 5px;
+margin-top: 17px;
+margin-bottom: 8px;
+border: none;
+font-size: 18px;
+color: #EBECF0;
+cursor: pointer;
+}
+
+.add{
+  background-color: #EBECF0;
+  color: #5E6C84;
+  text-align: left;
+}
+
+.button:disabled{
+  background-color: #b1b6c9;
+  color: #5E6C84;
+}
+
+.input{
+  width: 100%;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+  margin-top: 10px;
+  height: fit-content;
+  min-height: 40px;
+  max-height: 200px;
+  border: none;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: none;
+}
+.buttonsDiv{
+  display: flex;
+  width: 100%;
+  min-width: 252px;
+  justify-content: space-between;
+}
