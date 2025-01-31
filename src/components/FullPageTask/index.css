@@ -3,9 +3,9 @@
 .fullPageTaskMainDiv{
 position: fixed;
 width: calc(100% - 100px);
-height: 80%;
+height: 70%;
 background-color: white;
-top: 55px;
+top: 100px;
 left: 20px;
 z-index: 2;
 border-radius: 5px;
@@ -46,3 +46,69 @@ text-align: left;
 .x::after {
 	transform: rotate(-45deg);
 }
+
+.noTask{
+	font-size: 40px;
+	color: white;
+  margin: auto;
+}
+
+.pencile{
+	width: 42px;
+	min-width: 42px;
+	min-height: 42px;
+	height: 42px;
+	background-color: rgb(217, 226, 229);
+	border-radius: 50%;
+		margin-left:10px;
+}
+.pencile img{
+	width: 42px;
+	height: 42px;
+	min-width: 42px;
+	min-height: 42px;
+
+}
+
+.titleFullPage{
+	font-size: 24px;
+}
+
+.taskText{
+	min-width: 300px;
+	width: fit-content;
+	height: fit-content;
+	max-width: 50%;
+	max-height: 50%;
+	overflow-y: auto;
+	
+}
+.mainText{
+	font-size: 18px;
+	margin-top: 35px;
+	word-wrap: break-word;
+}
+.taskContainer{
+	display: flex;
+	width: 100%;
+	align-items: center;
+}
+
+.textInput{
+width: 90%;
+height: 300px;
+text-align: start;
+margin-top: 35px;
+font-size: 18px;
+}
+
+@media (max-width: 440px) {
+	.mainText{
+		max-width: 90%;
+	}
+	.taskContainer{
+  flex-direction: column;
+align-items: flex-start;
+	}
+}
+

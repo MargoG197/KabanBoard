@@ -45,6 +45,7 @@ cursor: pointer;
 .button:disabled{
   background-color: #b1b6c9;
   color: #5E6C84;
+  cursor: auto;
 }
 
 .input{

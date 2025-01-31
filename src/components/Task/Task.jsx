@@ -1,7 +1,7 @@
 import './index.css';
 import FullPageTasks from '../FullPageTask/FullPageTask'
 import { useState } from 'react';
-import {  Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function Task({ task }) {

@@ -1,103 +1,73 @@
 import "./index.css";
 import { useLocation } from "react-router-dom";
-import React, { useEffect, useState } from 'react';
-import '../../App.css';
- import user from '../../img/user-avatar.svg';
-import arrow from '../../img/arrow-down.svg';
-import { userMock, dataMock} from '../../App.data.js';
-
-
+import React, { useEffect, useState } from "react";
+import "../../App.css";
+import user from "../../img/user-avatar.svg";
+import arrow from "../../img/arrow-down.svg";
+import { userMock, dataMock } from "../../App.data.js";
+import { useNavigate } from "react-router-dom";
+import pencile from "./../../img/small_pencile.svg";
 
 const FullPageTask = () => {
 
-  // const options = ["Backlog", "Ready", "In Progress", "Finished"]
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [sessionTasks, setSessionTasks] = useState(dataMock)
+  const sessionTasks = dataMock;
   const [activeTasks, setActiveTasks] = useState(0);
   const [finished, setFinished] = useState(0);
+  const [openInput, setOpenInput] = useState(false);
 
 
-
-  ///выводим на страницу все объекты из localestorage при первом рендере страницы 
-  // useEffect(
-  //   function setTasks() {
-  //     const tempTasks = sessionTasks; 
-  //     const keys = Object.keys(localStorage);
-
-  //     tempTasks.forEach(i => {
-  //       i.issues.forEach(issue => {
-
-  //         if (!keys.includes(`${issue.id}`)) {
-  //           const itemToLocaleStorage = {
-  //             name: issue.name,
-  //             description: issue.description,
-  //             id: issue.id,
-  //             title: i.title,
-  //           }
-  //           localStorage.setItem(issue.id, JSON.stringify(itemToLocaleStorage))
-  //         }
-  //       })
-  //     })
-  //     tempTasks.forEach(i => i.issues = [])
-  //      keys.forEach(key => {
-  //        const newTask = JSON.parse(localStorage.getItem(`${key}`));
-  //          tempTasks.forEach(i => {
-  //            if (i.title === newTask.title) {
-  //              if (!i.issues.find(i => i.id === newTask.id)) {
-  //               i.issues.push(
-  //         {
-  //           id: newTask.id,
-  //           name: newTask.name,
-  //           description: newTask.description
-  //         }) 
-  //         }
-  //       } 
-  //     })
-  //      })
-  //   }
-
-  // , [sessionTasks])
-  
-
-
+  const navigate = useNavigate();
 
   function handleArrowClick() {
     if (showUserMenu) {
-      setShowUserMenu(false)
+      setShowUserMenu(false);
     } else {
-      setShowUserMenu(true)
+      setShowUserMenu(true);
     }
   }
 
-  useEffect(
-    () => {
-     let active = 0;
+  useEffect(() => {
+    let active = 0;
     let finish = 0;
-    
-    sessionTasks.forEach(i => {
-      if (i.title === 'Finished') {
-       finish += i.issues.length
-      } else if (i.title === 'Backlog'){
-        active +=i.issues.length
-     }
-    })
+
+    sessionTasks.forEach((i) => {
+      if (i.title === "Finished") {
+        finish += i.issues.length;
+      } else if (i.title === "Backlog") {
+        active += i.issues.length;
+      }
+    });
     setActiveTasks(active);
-    setFinished(finish)
-  
-  }, [sessionTasks])
+    setFinished(finish);
+  }, [sessionTasks]);
   const location = useLocation();
   const number = location.pathname.slice(1);
   const task = JSON.parse(localStorage.getItem(number));
 
-  function handleArrowClick() {
-    if (showUserMenu) {
-      setShowUserMenu(false)
+
+  function fixText() {
+    if (openInput === true) {
+      setOpenInput(false)
     } else {
-      setShowUserMenu(true)
+      setOpenInput(true) 
     }
   }
 
-  function closeFn() {}
+  function handleChange(value) {
+
+    ///создаем объект и запоминаем его в localStorage
+    const item = {
+      name: task.name,
+      description: value,
+      id: task.id,
+      title: task.title,
+    };
+  
+      localStorage.setItem(item.id, JSON.stringify(item));
+    
+  } 
+
   return (
     <div className="App roboto-font">
       <header className="App-header">
@@ -113,17 +83,31 @@ const FullPageTask = () => {
       </header>
 
       <div className="content">
-        <div className="fullPageTaskMainDiv">
-          <p className="title">{task.name}</p>
-          <p>{task.description}</p>
-          <div
-            className="x"
-            onClick={(e) => {
-              closeFn(false);
-              e.stopPropagation();
-            }}
-          ></div>
-        </div>
+        {task ? (
+          <div className="fullPageTaskMainDiv">
+            <div className="taskContainer">
+              <div className="taskText">
+                <h1 className="titleFullPage">{task.name}</h1>
+                {openInput ? <textarea type="text" className="textInput"
+                  onChange={e => handleChange(e.currentTarget.value)}
+               defaultValue={task.description}/> : task.description.length === 0 ? (<p className="mainText">This task has no description</p>): (<p className="mainText">{task.description}</p>) }
+              </div>
+              <div className="pencile">
+                <img src={pencile} alt="" onClick={fixText} />
+              </div>
+            </div>
+            <div
+              className="x"
+              onClick={() => {
+                navigate(-1);
+              }}
+            ></div>
+          </div>
+        ) : (
+          <h1 className="noTask">
+            It seems like there is no task by that number
+          </h1>
+        )}
       </div>
       <footer className="App-footer">
         <div className="footer-part">

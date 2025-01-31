@@ -1,56 +1,46 @@
-
-
-
-
-.block{
+.block {
   min-width: 134px;
   min-height: 60px;
   border-radius: 16px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
-justify-content: space-between;
+  justify-content: space-between;
   position: absolute;
   height: fit-content;
- text-align: left;
-padding: 8px 7px;
-margin: 0 9px;
-right: 0;
-top:55px;
-font-size: 16px;
-line-height: 20px;
-box-sizing: border-box;
+  text-align: left;
+  padding: 8px 7px;
+  margin: 0 9px;
+  right: 0;
+  top: 55px;
+  font-size: 16px;
+  line-height: 20px;
+  box-sizing: border-box;
+  z-index: 10;
 }
 
 .block::before {
-  content: ''; 
+  content: "";
   position: absolute; /* Абсолютное позиционирование */
   left: 90px;
-  top: -20px;;  /* Положение треугольника */
+  top: -20px; /* Положение треугольника */
   border: 10px solid transparent; /* Прозрачные границы */
-  border-bottom: 10px solid #FFFFFF; /* Добавляем треугольник */
- }
-.block p{
+  border-bottom: 10px solid #ffffff; /* Добавляем треугольник */
+}
+.block p {
   margin: 0;
   cursor: pointer;
   opacity: 0.5;
-	cursor: pointer;
+  cursor: pointer;
   color: black;
   background-color: none;
   border-radius: 5px;
   padding-left: 10px;
   transition: all ease 0.5s;
- 
 
   &:hover {
-		opacity: 1;
+    opacity: 1;
     background-color: rgba(175, 184, 186, 0.89);
     color: darkblue;
-	}
+  }
 }
-
-
-
-	
-
-	
