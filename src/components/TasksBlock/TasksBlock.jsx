@@ -7,19 +7,19 @@ function TasksBlock({ header, tasks, currentTasks, setTask, options, id }) {
   const [clicked, setClicked] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(1);
   const [disabled, setDisabled] = useState(true);
-  const [openInpit, setOpenInput] = useState(false);
-  const [openInpitOptions, setOpenInputOptions] = useState(false);
-  const [inpitOptions, setInputOptions] = useState([]);
-  const [choiceMade, setChoiceMade] = useState();
+  const [openInpit, setOpenInput] = useState(false); //// открыть грацу выбора опций
+  const [openInpitOptions, setOpenInputOptions] = useState(false); //// открыть выпадающий список
+  const [inpitOptions, setInputOptions] = useState([]); ///список для выбора тасков
+  const [choiceMade, setChoiceMade] = useState(); ///переменная для выбранного значения из списка тасков
   const [buttonActive, setButtonActive] = useState(false);
   const [tasksLength, setTasksLength] = useState(0);
-  // const [order, setOrder] = useState(1)
-  // const [currentSortedTasks, setCurrentSortedTasks] = useState([]);
+  const [order, setOrder] = useState(1); /// сортировка тасков 
+  const [currentSortedTasks, setCurrentSortedTasks] = useState([]);
 
   ////отображаем на странице внесенные таски
   function setTasks(index) {
     const tempTasks = [];
-    tasks.forEach(i => tempTasks.push(i));
+    tasks.forEach((i) => tempTasks.push(i));
     const newTask = JSON.parse(localStorage.getItem(`${index}`));
     tempTasks.forEach((i) => {
       if (i.title === newTask.title)
@@ -27,6 +27,7 @@ function TasksBlock({ header, tasks, currentTasks, setTask, options, id }) {
           id: newTask.id,
           name: newTask.name,
           description: newTask.description,
+          order: newTask.order,
         });
     });
     setTask(tempTasks);
@@ -45,9 +46,9 @@ function TasksBlock({ header, tasks, currentTasks, setTask, options, id }) {
         description: theIssue.description,
         id: theIssue.id,
         title: options[id],
-        // order:order
+        order: order,
       };
-      // setOrder(order+1)
+      setOrder(order + 1);
       localStorage.setItem(choiceMade, JSON.stringify(item));
       const arrWithRemovedIndex = tempTasks[id - 1].issues.filter(
         (i) => i.id !== choiceMade
@@ -69,6 +70,7 @@ function TasksBlock({ header, tasks, currentTasks, setTask, options, id }) {
           setClicked(false);
           setTasks(currentIndex);
           setCurrentIndex(currentIndex + 1);
+          setOrder(order + 1);
           setDisabled(true);
         }
       }
@@ -85,15 +87,27 @@ function TasksBlock({ header, tasks, currentTasks, setTask, options, id }) {
     }
   }
 
+  ////функция для вычисления последнего индекса при перезагрузке страницы
   function calcLastIndex() {
     const lastIndex = tasks.reduce((a, b) => a + b.issues.length, 0);
     setCurrentIndex(lastIndex + 1);
   }
+  //// функция для вычесления последнего порядкового номера таска для сортировки
+  function calcLastOrderNumber() {
+    if (currentTasks[0].issues.length > 0) {
+      const lastOrderNumber = currentTasks[0].issues.reduce((acc, curr) => {
+        return acc.order > curr.order ? acc : curr;
+      });
+      setOrder(lastOrderNumber.order + 1);
+    }
+  }
 
   useEffect(() => {
     calcLastIndex();
+    calcLastOrderNumber();
   });
 
+  ////функция для отслеживания изменения по введенным таскам
   function handleChange(value, ind) {
     ///не сохраняем данные если длинна сообщения меньше 5 символов
     if (value.length >= 5) {
@@ -103,38 +117,40 @@ function TasksBlock({ header, tasks, currentTasks, setTask, options, id }) {
     }
     ///создаем объект и запоминаем его в localStorage
     const item = {
-      name: value.slice(0, 15),
-      description: value,
+      name: value,
+      description: "",
       id: ind,
       title: "Backlog",
+      order: order,
     };
+
     if (!item.name.length === 0) {
     } else {
       localStorage.setItem(item.id, JSON.stringify(item));
     }
   }
 
-
+  ///вычисляем общее количество тасков для вычисления следующего айди
   useEffect(() => {
     if (id >= 1) {
       if (tasks[id - 1].title === options[id - 1]) {
         setTasksLength(tasks[id - 1].issues.length);
       }
-    } 
+    }
   }, [tasks, id, options]);
 
 
-
-  
-
-  // useEffect(() => {
-  //   const currentTaskstoShow = [];
-  //   if (currentTasks[0].issues.length > 0) {
-  //     currentTasks[0].issues.map(issue => currentTaskstoShow.push(issue))
-  //   }
-  //   let sorted = currentTaskstoShow.sort((a, b) => { return a.order - b.order });
-  //   setCurrentSortedTasks(sorted)
-  // }, [currentTasks])
+  ////сортируем таски перед рендером блока с тасками
+  useEffect(() => {
+    const currentTaskstoShow = [];
+    if (currentTasks[0].issues.length > 0) {
+      currentTasks[0].issues.map((issue) => currentTaskstoShow.push(issue));
+    }
+    let sorted = currentTaskstoShow.sort((a, b) => {
+      return Number(a.order) - Number(b.order);
+    });
+    setCurrentSortedTasks(sorted);
+  }, [currentTasks]);
 
   return (
     <div className="taskskBlock" key={id}>
@@ -142,7 +158,7 @@ function TasksBlock({ header, tasks, currentTasks, setTask, options, id }) {
       <div className="taskBlockContent">
         {currentTasks &&
           currentTasks[0].issues.length > 0 &&
-          currentTasks[0].issues.map((task) => (
+          currentSortedTasks.map((task) => (
             <div key={`${task.id + id + header}`}>
               <Task task={task} />
             </div>
@@ -199,7 +215,14 @@ function TasksBlock({ header, tasks, currentTasks, setTask, options, id }) {
           </button>
         )}
         {openInpit && inpitOptions.length && (
-          <button className="button" onClick={()=>{ setOpenInput(false); setButtonActive(false); setChoiceMade()}}>
+          <button
+            className="button"
+            onClick={() => {
+              setOpenInput(false);
+              setButtonActive(false);
+              setChoiceMade();
+            }}
+          >
             Cancel
           </button>
         )}

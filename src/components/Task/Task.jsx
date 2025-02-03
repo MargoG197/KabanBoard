@@ -12,9 +12,6 @@ function Task({ task }) {
         <Link className='title' to={`/${task.id}`}>
           {task.name}
         </Link>
-        <p>
-          {task.description}
-          </p>
       {openFullPage && <FullPageTasks task={task} closeFn={setOpenFullPage} />}
       </div>
   )

@@ -2,19 +2,24 @@
 
 .taskBlock{
   background-color: #FFFFFF;
-  border-radius: 16px;
+  border-radius: 5px;
   width: 258px;
   height: fit-content;
+  min-height: 35px;
   max-height: 200px;
   font-size: 18px;
   padding: 7px 8px;
   margin-bottom: 4px;
   cursor: pointer;
   text-align: left;
+  display: flex;
+  align-items: center;
+  
 }
 
 .title{
-  font-weight: 600;
+  font-weight: 400;
+  font-size: 18px;
   line-height: normal;
   color: black;
   padding: 0;

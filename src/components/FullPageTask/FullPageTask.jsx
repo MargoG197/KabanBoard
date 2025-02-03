@@ -7,6 +7,7 @@ import arrow from "../../img/arrow-down.svg";
 import { userMock, dataMock } from "../../App.data.js";
 import { useNavigate } from "react-router-dom";
 import pencile from "./../../img/small_pencile.svg";
+import UserMenu from '../UserMenu/UserMenu.jsx';
 
 const FullPageTask = () => {
 
@@ -81,7 +82,7 @@ const FullPageTask = () => {
           />
         </div>
       </header>
-
+      {showUserMenu && <UserMenu />}
       <div className="content">
         {task ? (
           <div className="fullPageTaskMainDiv">

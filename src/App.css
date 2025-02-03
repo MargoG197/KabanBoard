@@ -1,46 +1,39 @@
 
-@font-face{
-  font-family: "Roboto"; 
-  src: url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-}
-
 .App {
   text-align: center;
-  background-color: #0079BF;
+  background-color: #0079bf;
   min-height: 100vh;
   min-width: 100vw;
   box-sizing: border-box;
-  font-family: "Roboto", serif;
+  font-family: "Roboto Regular";
   overflow-y: auto;
   padding-bottom: 100px;
 }
 
-
-
 .App-header {
-  background-color: #0067A3;
+  background-color: #0067a3;
   min-height: 55px;
   min-width: full;
   text-align: center;
-display: flex;
-align-items: center;
-padding: 0 14px;
-font-size: 28px;
-color: white;
-display: flex;
-justify-content: space-between;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  font-size: 28px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
 }
 
-.App-header-title{
+.App-header-title {
   margin: 0;
 }
 
-.user-avatar:hover{
+.user-avatar:hover {
   cursor: pointer;
 }
 
-.App-footer{
-  background-color: #0067A3;
+.App-footer {
+  background-color: #0067a3;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -52,45 +45,41 @@ justify-content: space-between;
   padding: 0 14px;
 }
 
-.footer-part{
-display: flex;
-font-size: 18px;
-color: white;
-width: fit-content;
-justify-content: space-between;
+.footer-part {
+  display: flex;
+  font-size: 18px;
+  color: white;
+  width: fit-content;
+  justify-content: space-between;
 }
-.footer-part p{
+.footer-part p {
   margin-right: 40px;
 }
-.content{
+.content {
   display: flex;
   margin-top: 20px;
   justify-content: space-between;
-  padding: 0 19px;;
+  padding: 0 19px;
 }
 
-.rotate{
+.rotate {
   transform: rotate(180deg);
 }
 
-
-
-@media (max-width: 1248px){
-  .content{
-   flex-wrap: wrap;
+@media (max-width: 1248px) {
+  .content {
+    flex-wrap: wrap;
   }
-.footer-part{
+  .footer-part {
     font-size: 14px;
   }
-
 }
 
-@media (max-width: 380px){
-  .App-header-title{
+@media (max-width: 380px) {
+  .App-header-title {
     display: none;
   }
-  .App-header{
+  .App-header {
     justify-content: flex-end;
   }
-  
 }

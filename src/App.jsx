@@ -34,6 +34,7 @@ function App() {
               description: issue.description,
               id: issue.id,
               title: i.title,
+              order: i.order
             }
             localStorage.setItem(issue.id, JSON.stringify(itemToLocaleStorage))
           }
@@ -49,7 +50,8 @@ function App() {
           {
             id: newTask.id,
             name: newTask.name,
-            description: newTask.description
+            description: newTask.description,
+            order:newTask.order
           }) 
           }
         } 
